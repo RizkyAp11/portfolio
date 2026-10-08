@@ -1,16 +1,114 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const projects = [
+  {
+    number: "01",
+    title: "PORTFOLIO WEBSITE",
+    description:
+      "A personal portfolio website built from scratch to document my work, experiments and progress as a developer.",
+    year: "2026",
+    status: "LIVE",
+    liveUrl: "https://portfoliorizky.vercel.app",
+    githubUrl: "https://github.com/RizkyAp11/portfolio",
+    stack: ["NEXT.JS", "TYPESCRIPT", "TAILWIND"],
+  },
+];
+
+const navigation = [
+  { id: "home", label: "01. HOME" },
+  { id: "about", label: "02. ABOUT" },
+  { id: "projects", label: "03. PROJECTS" },
+  { id: "contact", label: "04. CONTACT" },
+];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({
+    x: 0,
+    y: 0,
+  });
 
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
+  /* =========================================================
+     ACTIVE NAVIGATION
+  ========================================================= */
+  useEffect(() => {
+    const sections = navigation
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleSections.length > 0) {
+          setActiveSection(visibleSections[0].target.id);
+        }
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: [0.1, 0.25, 0.5],
+      },
+    );
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  /* =========================================================
+     SUBTLE DESKTOP CURSOR
+  ========================================================= */
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setCursorPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      setCursorVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setCursorVisible(false);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    document.documentElement.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        handleMouseLeave,
+      );
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F3F2ED]">
+      {/* SUBTLE CURSOR */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none fixed left-0 top-0 z-[100] hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C8FF00]/70 transition-opacity duration-200 md:block ${
+          cursorVisible ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          transform: `translate(${cursorPosition.x}px, ${cursorPosition.y}px) translate(-50%, -50%)`,
+        }}
+      />
+
       <div className="mx-4 my-4 border border-[#F3F2ED]/20 md:mx-7 md:my-6">
 
         {/* =====================================================
@@ -22,47 +120,41 @@ export default function Home() {
             <a
               href="#home"
               onClick={closeMenu}
-              className="font-mono text-sm font-bold transition-colors hover:text-[#C8FF00]"
+              className="font-mono text-sm font-bold transition-all duration-200 hover:text-[#C8FF00]"
             >
               RIZKY<span className="text-[#C8FF00]">/001</span>
             </a>
 
             {/* DESKTOP NAV */}
-            <nav className="hidden gap-8 font-mono text-[10px] text-[#A6A6A6] md:flex">
+            <nav className="hidden gap-8 font-mono text-[10px] md:flex">
+              {navigation.map((item) => {
+                const isActive = activeSection === item.id;
 
-              <a
-                href="#home"
-                className="relative transition-colors duration-200 hover:text-[#C8FF00] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-[#C8FF00] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                01. HOME
-              </a>
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`relative transition-colors duration-200 ${
+                      isActive
+                        ? "text-[#C8FF00]"
+                        : "text-[#A6A6A6] hover:text-[#C8FF00]"
+                    }`}
+                  >
+                    {item.label}
 
-              <a
-                href="#about"
-                className="relative transition-colors duration-200 hover:text-[#C8FF00] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-[#C8FF00] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                02. ABOUT
-              </a>
-
-              <a
-                href="#projects"
-                className="relative transition-colors duration-200 hover:text-[#C8FF00] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-[#C8FF00] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                03. PROJECTS
-              </a>
-
-              <a
-                href="#contact"
-                className="relative transition-colors duration-200 hover:text-[#C8FF00] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-[#C8FF00] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                04. CONTACT
-              </a>
-
+                    <span
+                      className={`absolute -bottom-1 left-0 h-px bg-[#C8FF00] transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0"
+                      }`}
+                    />
+                  </a>
+                );
+              })}
             </nav>
 
             {/* DESKTOP STATUS */}
             <div className="hidden items-center gap-2 font-mono text-[9px] text-[#A6A6A6] md:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00]" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#C8FF00]" />
               ONLINE
             </div>
 
@@ -88,59 +180,39 @@ export default function Home() {
             }`}
           >
             <nav className="mt-4 border-t border-[#F3F2ED]/20 pt-2">
+              {navigation.map((item) => {
+                const isActive = activeSection === item.id;
 
-              <a
-                href="#home"
-                onClick={closeMenu}
-                className="group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] text-[#A6A6A6] transition-colors hover:text-[#C8FF00]"
-              >
-                01. HOME
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  ↗
-                </span>
-              </a>
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={closeMenu}
+                    className={`group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] transition-colors ${
+                      isActive
+                        ? "text-[#C8FF00]"
+                        : "text-[#A6A6A6] hover:text-[#C8FF00]"
+                    }`}
+                  >
+                    {item.label}
 
-              <a
-                href="#about"
-                onClick={closeMenu}
-                className="group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] text-[#A6A6A6] transition-colors hover:text-[#C8FF00]"
-              >
-                02. ABOUT
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  ↗
-                </span>
-              </a>
-
-              <a
-                href="#projects"
-                onClick={closeMenu}
-                className="group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] text-[#A6A6A6] transition-colors hover:text-[#C8FF00]"
-              >
-                03. PROJECTS
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  ↗
-                </span>
-              </a>
-
-              <a
-                href="#contact"
-                onClick={closeMenu}
-                className="group flex items-center justify-between py-4 font-mono text-[10px] text-[#A6A6A6] transition-colors hover:text-[#C8FF00]"
-              >
-                04. CONTACT
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  ↗
-                </span>
-              </a>
+                    <span
+                      className={`transition-transform duration-200 group-hover:translate-x-1 ${
+                        isActive ? "text-[#C8FF00]" : ""
+                      }`}
+                    >
+                      ↗
+                    </span>
+                  </a>
+                );
+              })}
 
               <div className="flex items-center gap-2 py-4 font-mono text-[9px] text-[#A6A6A6]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00]" />
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#C8FF00]" />
                 ONLINE
               </div>
-
             </nav>
           </div>
-
         </header>
 
 
@@ -189,18 +261,24 @@ export default function Home() {
 
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-[10px] font-bold text-[#0A0A0A] transition-colors hover:bg-transparent hover:text-[#C8FF00]"
+                className="group inline-flex items-center justify-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-[10px] font-bold text-[#0A0A0A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-[#C8FF00]"
               >
-                VIEW PROJECTS →
+                VIEW PROJECTS
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
               </a>
 
               <a
                 href="https://github.com/RizkyAp11"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center border border-[#F3F2ED]/30 px-5 py-3 font-mono text-[10px] transition-colors hover:border-[#C8FF00] hover:text-[#C8FF00]"
+                className="group inline-flex items-center justify-center border border-[#F3F2ED]/30 px-5 py-3 font-mono text-[10px] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C8FF00] hover:text-[#C8FF00]"
               >
-                GITHUB ↗
+                GITHUB
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                  ↗
+                </span>
               </a>
 
             </div>
@@ -222,17 +300,17 @@ export default function Home() {
             <img
               src="/hero.jpg"
               alt="Rizky portfolio visual"
-              className="absolute inset-0 h-full w-full object-cover object-center grayscale transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+              className="absolute inset-0 h-full w-full object-cover object-center grayscale transition-transform duration-700 ease-out group-hover:scale-[1.015]"
             />
 
             <div className="absolute inset-0 bg-black/10" />
 
-            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-colors duration-500 group-hover:border-[#C8FF00]/40" />
+            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-all duration-500 group-hover:border-[#C8FF00]/40 group-hover:scale-[1.01]" />
 
             <div className="absolute bottom-[16%] right-[12%] h-[30%] w-[34%] border border-white/20 transition-colors duration-500 group-hover:border-[#C8FF00]/40" />
 
             {/* CROSS 1 */}
-            <div className="absolute left-[7%] top-[48%] h-8 w-8">
+            <div className="absolute left-[7%] top-[48%] h-8 w-8 transition-transform duration-500 group-hover:rotate-45">
               <div className="absolute left-1/2 top-0 h-8 w-[2px] -translate-x-1/2 bg-[#C8FF00]" />
               <div className="absolute left-0 top-1/2 h-[2px] w-8 -translate-y-1/2 bg-[#C8FF00]" />
             </div>
@@ -245,11 +323,11 @@ export default function Home() {
 
             {/* SYSTEM LABEL */}
             <div className="absolute right-0 top-0 border-b border-l border-[#F3F2ED]/30 bg-[#0A0A0A]/90 px-3 py-2 font-mono text-[8px] leading-3">
-              SYS/001
+              SYS/002
               <br />
               WEB_INTERFACE
               <br />
-              v1.0
+              v2.0
             </div>
 
             <div className="absolute bottom-0 left-0 border-r border-t border-[#F3F2ED]/30 bg-[#0A0A0A]/80 px-4 py-2 font-mono text-[8px] text-white/70">
@@ -257,7 +335,7 @@ export default function Home() {
             </div>
 
             <div className="absolute bottom-[16%] right-[12%] bg-[#0A0A0A]/80 px-3 py-2 font-mono text-[8px] text-white/70">
-              RIZKY/001
+              RIZKY/002
             </div>
 
           </div>
@@ -267,7 +345,7 @@ export default function Home() {
           <div className="flex flex-col justify-between p-6 md:p-8">
 
             <div className="font-mono text-[9px] text-[#A6A6A6]">
-              RIZKY/001
+              RIZKY/002
             </div>
 
             <div className="mt-12 max-w-[180px] md:mt-0">
@@ -288,7 +366,7 @@ export default function Home() {
               <div className="mb-5 h-8 w-28 bg-[repeating-linear-gradient(90deg,#F3F2ED_0px,#F3F2ED_1px,transparent_1px,transparent_3px)] opacity-70" />
 
               <p className="font-mono text-[9px] text-[#A6A6A6]">
-                RIZKY/001
+                V2 / BUILD 001
               </p>
             </div>
 
@@ -421,88 +499,106 @@ export default function Home() {
             {/* =================================================
                 PROJECT 01
             ================================================= */}
-            <div className="group mt-12 border-y border-[#F3F2ED]/20 transition-colors duration-300 hover:border-[#C8FF00]/50">
+            {projects.map((project) => (
+              <div
+                key={project.number}
+                className="group mt-12 border-y border-[#F3F2ED]/20 transition-all duration-300 hover:border-[#C8FF00]/50"
+              >
 
-              <div className="grid md:grid-cols-[80px_1fr_120px]">
+                <div className="grid md:grid-cols-[80px_1fr_120px]">
 
-                {/* NUMBER */}
-                <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-colors duration-300 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
-                  01
-                </div>
+                  {/* NUMBER */}
+                  <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-all duration-300 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
+                    {project.number}
+                  </div>
 
 
-                {/* CONTENT */}
-                <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-8">
+                  {/* CONTENT */}
+                  <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-8">
 
-                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex items-start justify-between gap-5">
 
-                    <div>
+                      <div>
 
-                      <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00] md:text-3xl">
-                        PORTFOLIO WEBSITE
-                      </h3>
+                        <div className="mb-3 flex flex-wrap items-center gap-3">
 
-                      <p className="mt-4 max-w-xl text-sm leading-6 text-[#A6A6A6]">
-                        A personal portfolio website built from
-                        scratch to document my work, experiments
-                        and progress as a developer.
-                      </p>
+                          <span className="border border-[#C8FF00]/40 px-2 py-1 font-mono text-[8px] text-[#C8FF00]">
+                            {project.status}
+                          </span>
+
+                          <span className="font-mono text-[9px] text-[#A6A6A6]">
+                            WEB / PERSONAL
+                          </span>
+
+                        </div>
+
+                        <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00] md:text-3xl">
+                          {project.title}
+                        </h3>
+
+                        <p className="mt-4 max-w-xl text-sm leading-6 text-[#A6A6A6]">
+                          {project.description}
+                        </p>
+
+                      </div>
+
+                      <span className="font-mono text-[10px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
+                        {project.year}
+                      </span>
 
                     </div>
 
-                    <span className="font-mono text-[10px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
-                      2026
-                    </span>
+
+                    {/* TECH STACK */}
+                    <div className="mt-7 flex flex-wrap gap-2">
+                      {project.stack.map((technology) => (
+                        <span
+                          key={technology}
+                          className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30"
+                        >
+                          {technology}
+                        </span>
+                      ))}
+                    </div>
 
                   </div>
 
 
-                  {/* TECH STACK */}
-                  <div className="mt-7 flex flex-wrap gap-2">
+                  {/* ACTIONS */}
+                  <div className="flex flex-col items-stretch justify-center gap-2 p-6 sm:flex-row md:flex-col">
 
-                    <span className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30">
-                      NEXT.JS
-                    </span>
+                    {/* LIVE */}
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/button border border-[#C8FF00] px-4 py-3 text-center font-mono text-[9px] text-[#C8FF00] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#C8FF00] hover:text-[#0A0A0A]"
+                    >
+                      LIVE
+                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1">
+                        ↗
+                      </span>
+                    </a>
 
-                    <span className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30">
-                      TYPESCRIPT
-                    </span>
-
-                    <span className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30">
-                      TAILWIND
-                    </span>
+                    {/* SOURCE */}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/button border border-[#F3F2ED]/30 px-4 py-3 text-center font-mono text-[9px] text-[#A6A6A6] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C8FF00] hover:text-[#C8FF00]"
+                    >
+                      SOURCE
+                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1">
+                        ↗
+                      </span>
+                    </a>
 
                   </div>
-
-                </div>
-
-
-                {/* ACTIONS */}
-                <div className="flex flex-col items-stretch justify-center gap-2 p-6 sm:flex-row md:flex-col">
-
-                  {/* LIVE */}
-                  <a
-                    href="#home"
-                    className="border border-[#C8FF00] px-4 py-3 text-center font-mono text-[9px] text-[#C8FF00] transition-colors duration-300 hover:bg-[#C8FF00] hover:text-[#0A0A0A]"
-                  >
-                    LIVE ↗
-                  </a>
-
-                  {/* SOURCE */}
-                  <a
-                    href="https://github.com/RizkyAp11"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-[#F3F2ED]/30 px-4 py-3 text-center font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 hover:border-[#C8FF00] hover:text-[#C8FF00]"
-                  >
-                    SOURCE ↗
-                  </a>
 
                 </div>
 
               </div>
-
-            </div>
+            ))}
 
 
             {/* =================================================
@@ -634,7 +730,7 @@ export default function Home() {
                   href="https://github.com/RizkyAp11"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-colors hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
+                  className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-all duration-300 hover:px-2 hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span>GITHUB</span>
 
@@ -647,7 +743,7 @@ export default function Home() {
                 {/* EMAIL */}
                 <a
                   href="mailto:rizkyadityapratama421@gmail.com"
-                  className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-colors hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
+                  className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-all duration-300 hover:px-2 hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span>EMAIL</span>
 
@@ -662,7 +758,7 @@ export default function Home() {
                   href="https://instagram.com/adit.ptama"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col gap-2 border-y border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-colors hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
+                  className="group flex flex-col gap-2 border-y border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-all duration-300 hover:px-2 hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span>INSTAGRAM</span>
 
@@ -696,7 +792,7 @@ export default function Home() {
             </span>
 
             <span>
-              RIZKY/001 — 2026
+              RIZKY/002 — 2026
             </span>
 
           </div>
