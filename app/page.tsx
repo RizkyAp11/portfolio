@@ -110,13 +110,11 @@ export default function Home() {
       />
 
       <div className="mx-4 my-4 border border-[#F3F2ED]/20 md:mx-7 md:my-6">
-
         {/* =====================================================
             HEADER
         ===================================================== */}
         <header className="border-b border-[#F3F2ED]/20 px-5 py-4 md:px-8">
           <div className="flex items-center justify-between">
-
             <a
               href="#home"
               onClick={closeMenu}
@@ -168,7 +166,6 @@ export default function Home() {
             >
               {menuOpen ? "CLOSE ×" : "MENU +"}
             </button>
-
           </div>
 
           {/* MOBILE NAV */}
@@ -215,37 +212,34 @@ export default function Home() {
           </div>
         </header>
 
-
         {/* =====================================================
             HERO
         ===================================================== */}
         <section
           id="home"
-          className="grid min-h-[680px] grid-cols-1 md:grid-cols-[1.05fr_1.2fr_0.75fr]"
+          className="grid min-h-[620px] grid-cols-1 md:min-h-[680px] md:grid-cols-[1.05fr_1.2fr_0.75fr]"
         >
-
           {/* LEFT */}
-          <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-8">
-
-            <p className="mb-12 font-mono text-[10px] text-[#A6A6A6] md:mb-16">
+          <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-8">
+            <p className="mb-10 font-mono text-[10px] text-[#A6A6A6] md:mb-16">
               01 — INTRO
             </p>
 
             <div>
-              <h1 className="text-[clamp(3.5rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
+              <h1 className="text-[clamp(3.15rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
                 RIZKY
               </h1>
 
-              <h1 className="text-[clamp(3.5rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
+              <h1 className="text-[clamp(3.15rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
                 ADITYA
               </h1>
 
-              <h1 className="text-[clamp(3.5rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
+              <h1 className="text-[clamp(3.15rem,6vw,6.5rem)] font-bold leading-[0.78] tracking-[-0.065em]">
                 PRATAMA
               </h1>
             </div>
 
-            <div className="mt-10 max-w-[260px]">
+            <div className="mt-8 max-w-[260px] md:mt-10">
               <p className="text-sm leading-5 text-[#A6A6A6]">
                 STUDENT DEVELOPER
                 <br />
@@ -257,8 +251,7 @@ export default function Home() {
               <div className="mt-5 h-[2px] w-8 bg-[#C8FF00]" />
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <a
                 href="#projects"
                 className="group inline-flex items-center justify-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-[10px] font-bold text-[#0A0A0A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-[#C8FF00]"
@@ -280,7 +273,6 @@ export default function Home() {
                   ↗
                 </span>
               </a>
-
             </div>
 
             <div className="mt-12 font-mono text-[9px] text-[#A6A6A6] md:mt-14">
@@ -290,13 +282,10 @@ export default function Home() {
                 NO TRACKERS. &nbsp; BUILT WITH CODE.
               </p>
             </div>
-
           </div>
 
-
           {/* CENTER — PHOTO */}
-          <div className="group relative min-h-[430px] overflow-hidden border-b border-[#F3F2ED]/20 sm:min-h-[500px] md:min-h-0 md:border-b-0 md:border-r">
-
+          <div className="group relative min-h-[400px] overflow-hidden border-b border-[#F3F2ED]/20 sm:min-h-[500px] md:min-h-0 md:border-b-0 md:border-r">
             <img
               src="/hero.jpg"
               alt="Rizky portfolio visual"
@@ -305,7 +294,7 @@ export default function Home() {
 
             <div className="absolute inset-0 bg-black/10" />
 
-            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-all duration-500 group-hover:border-[#C8FF00]/40 group-hover:scale-[1.01]" />
+            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-all duration-500 group-hover:scale-[1.01] group-hover:border-[#C8FF00]/40" />
 
             <div className="absolute bottom-[16%] right-[12%] h-[30%] w-[34%] border border-white/20 transition-colors duration-500 group-hover:border-[#C8FF00]/40" />
 
@@ -337,13 +326,10 @@ export default function Home() {
             <div className="absolute bottom-[16%] right-[12%] bg-[#0A0A0A]/80 px-3 py-2 font-mono text-[8px] text-white/70">
               RIZKY/002
             </div>
-
           </div>
-
 
           {/* RIGHT */}
           <div className="flex flex-col justify-between p-6 md:p-8">
-
             <div className="font-mono text-[9px] text-[#A6A6A6]">
               RIZKY/002
             </div>
@@ -369,11 +355,8 @@ export default function Home() {
                 V2 / BUILD 001
               </p>
             </div>
-
           </div>
-
         </section>
-
 
         {/* =====================================================
             ABOUT
@@ -382,39 +365,30 @@ export default function Home() {
           id="about"
           className="grid border-t border-[#F3F2ED]/20 md:grid-cols-[1.2fr_0.8fr]"
         >
-
-          <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-10">
-
+          <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-10">
             <p className="mb-10 font-mono text-[10px] text-[#A6A6A6] md:mb-12">
               02 — ABOUT
             </p>
 
             <div className="max-w-2xl">
-
               <h2 className="text-4xl font-bold tracking-tight md:text-6xl">
                 I&apos;M RIZKY.
               </h2>
 
               <p className="mt-6 max-w-lg text-base leading-7 text-[#A6A6A6]">
-                A student developer interested in building
-                digital products, interfaces and things that
-                live on the web.
+                A student developer interested in building digital products,
+                interfaces and things that live on the web.
               </p>
 
               <p className="mt-6 max-w-lg text-base leading-7 text-[#A6A6A6]">
-                Currently learning, experimenting and building
-                things while figuring out what comes next.
+                Currently learning, experimenting and building things while
+                figuring out what comes next.
               </p>
-
             </div>
-
           </div>
 
-
-          <div className="p-6 md:p-10">
-
+          <div className="p-5 md:p-10">
             <div className="grid grid-cols-2 gap-y-10 font-mono text-[10px]">
-
               <div>
                 <p className="text-[#C8FF00]">AGE</p>
                 <p className="mt-2 text-[#A6A6A6]">17</p>
@@ -441,29 +415,22 @@ export default function Home() {
                   DEVELOPMENT
                 </p>
               </div>
-
             </div>
 
             <div className="my-10 h-px bg-[#F3F2ED]/20" />
 
             <div>
-
               <p className="font-mono text-[10px] text-[#C8FF00]">
                 CURRENTLY
               </p>
 
               <p className="mt-4 max-w-sm text-sm leading-6 text-[#A6A6A6]">
-                Learning modern web development,
-                experimenting with interfaces and
-                documenting the process through code.
+                Learning modern web development, experimenting with interfaces
+                and documenting the process through code.
               </p>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =====================================================
             PROJECTS
@@ -472,56 +439,40 @@ export default function Home() {
           id="projects"
           className="border-t border-[#F3F2ED]/20"
         >
-
-          <div className="p-6 md:p-10">
-
+          <div className="p-5 md:p-10">
             <div className="flex items-end justify-between">
-
               <div>
-
                 <p className="font-mono text-[10px] text-[#A6A6A6]">
                   03 — SELECTED WORK
                 </p>
 
-                <h2 className="mt-5 text-4xl font-bold tracking-tight md:text-6xl">
+                <h2 className="mt-4 text-[2.5rem] font-bold leading-none tracking-[-0.04em] md:mt-5 md:text-6xl md:tracking-tight">
                   PROJECTS.
                 </h2>
-
               </div>
 
               <span className="hidden font-mono text-[9px] text-[#A6A6A6] md:block">
                 001 — 003
               </span>
-
             </div>
 
-
-            {/* =================================================
-                PROJECT 01
-            ================================================= */}
+            {/* PROJECT 01 */}
             {projects.map((project) => (
               <div
                 key={project.number}
-                className="group mt-12 border-y border-[#F3F2ED]/20 transition-all duration-300 hover:border-[#C8FF00]/50"
+                className="group mt-10 border-y border-[#F3F2ED]/20 transition-all duration-300 hover:border-[#C8FF00]/50 md:mt-12"
               >
-
                 <div className="grid md:grid-cols-[80px_1fr_120px]">
-
                   {/* NUMBER */}
                   <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-all duration-300 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
                     {project.number}
                   </div>
 
-
                   {/* CONTENT */}
-                  <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-8">
-
+                  <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-8">
                     <div className="flex items-start justify-between gap-5">
-
                       <div>
-
                         <div className="mb-3 flex flex-wrap items-center gap-3">
-
                           <span className="border border-[#C8FF00]/40 px-2 py-1 font-mono text-[8px] text-[#C8FF00]">
                             {project.status}
                           </span>
@@ -529,7 +480,6 @@ export default function Home() {
                           <span className="font-mono text-[9px] text-[#A6A6A6]">
                             WEB / PERSONAL
                           </span>
-
                         </div>
 
                         <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00] md:text-3xl">
@@ -539,15 +489,12 @@ export default function Home() {
                         <p className="mt-4 max-w-xl text-sm leading-6 text-[#A6A6A6]">
                           {project.description}
                         </p>
-
                       </div>
 
                       <span className="font-mono text-[10px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                         {project.year}
                       </span>
-
                     </div>
-
 
                     {/* TECH STACK */}
                     <div className="mt-7 flex flex-wrap gap-2">
@@ -560,13 +507,10 @@ export default function Home() {
                         </span>
                       ))}
                     </div>
-
                   </div>
 
-
                   {/* ACTIONS */}
-                  <div className="flex flex-col items-stretch justify-center gap-2 p-6 sm:flex-row md:flex-col">
-
+                  <div className="flex flex-col items-stretch justify-center gap-2 p-5 sm:flex-row md:flex-col md:p-6">
                     {/* LIVE */}
                     <a
                       href={project.liveUrl}
@@ -592,44 +536,30 @@ export default function Home() {
                         ↗
                       </span>
                     </a>
-
                   </div>
-
                 </div>
-
               </div>
             ))}
 
-
-            {/* =================================================
-                PROJECT 02
-            ================================================= */}
+            {/* PROJECT 02 */}
             <div className="border-b border-[#F3F2ED]/20">
-
               <div className="grid md:grid-cols-[80px_1fr_120px]">
-
                 <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
                   02
                 </div>
 
-                <div className="p-6 md:border-r md:p-8">
-
+                <div className="p-5 md:border-r md:p-8">
                   <div className="flex items-center justify-between gap-5">
-
-                    <h3 className="text-xl font-bold">
-                      COMING SOON
-                    </h3>
+                    <h3 className="text-xl font-bold">COMING SOON</h3>
 
                     <span className="font-mono text-[10px] text-[#A6A6A6]">
                       —
                     </span>
-
                   </div>
 
                   <p className="mt-3 font-mono text-[9px] text-[#A6A6A6]">
                     NEXT PROJECT IN DEVELOPMENT
                   </p>
-
                 </div>
 
                 <div className="hidden items-center justify-center p-6 md:flex">
@@ -637,41 +567,28 @@ export default function Home() {
                     LOCKED
                   </span>
                 </div>
-
               </div>
-
             </div>
 
-
-            {/* =================================================
-                PROJECT 03
-            ================================================= */}
+            {/* PROJECT 03 */}
             <div className="border-b border-[#F3F2ED]/20">
-
               <div className="grid md:grid-cols-[80px_1fr_120px]">
-
                 <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
                   03
                 </div>
 
-                <div className="p-6 md:border-r md:p-8">
-
+                <div className="p-5 md:border-r md:p-8">
                   <div className="flex items-center justify-between gap-5">
-
-                    <h3 className="text-xl font-bold">
-                      COMING SOON
-                    </h3>
+                    <h3 className="text-xl font-bold">COMING SOON</h3>
 
                     <span className="font-mono text-[10px] text-[#A6A6A6]">
                       —
                     </span>
-
                   </div>
 
                   <p className="mt-3 font-mono text-[9px] text-[#A6A6A6]">
                     SOMETHING IS BEING BUILT
                   </p>
-
                 </div>
 
                 <div className="hidden items-center justify-center p-6 md:flex">
@@ -679,15 +596,10 @@ export default function Home() {
                     LOCKED
                   </span>
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =====================================================
             CONTACT
@@ -696,11 +608,8 @@ export default function Home() {
           id="contact"
           className="border-t border-[#F3F2ED]/20"
         >
-
           <div className="grid md:grid-cols-2">
-
-            <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-10">
-
+            <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-10">
               <p className="font-mono text-[10px] text-[#A6A6A6]">
                 04 — CONTACT
               </p>
@@ -712,19 +621,15 @@ export default function Home() {
                 <br />
                 SOMETHING.
               </h2>
-
             </div>
 
-
-            <div className="p-6 md:p-10">
-
+            <div className="p-5 md:p-10">
               <p className="max-w-md text-sm leading-6 text-[#A6A6A6]">
-                Got a project, idea, or just want to say hi?
-                Feel free to reach out.
+                Got a project, idea, or just want to say hi? Feel free to
+                reach out.
               </p>
 
               <div className="mt-10">
-
                 {/* GITHUB */}
                 <a
                   href="https://github.com/RizkyAp11"
@@ -739,7 +644,6 @@ export default function Home() {
                   </span>
                 </a>
 
-
                 {/* EMAIL */}
                 <a
                   href="mailto:rizkyadityapratama421@gmail.com"
@@ -751,7 +655,6 @@ export default function Home() {
                     rizkyadityapratama421@gmail.com ↗
                   </span>
                 </a>
-
 
                 {/* INSTAGRAM */}
                 <a
@@ -766,39 +669,25 @@ export default function Home() {
                     @adit.ptama ↗
                   </span>
                 </a>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =====================================================
             FOOTER
         ===================================================== */}
         <footer className="border-t border-[#F3F2ED]/20 px-5 py-4 md:px-8">
-
           <div className="flex flex-col justify-between gap-2 font-mono text-[9px] text-[#A6A6A6] sm:flex-row">
-
-            <span>
-              DESIGN / CODE / EXPERIMENT
-            </span>
+            <span>DESIGN / CODE / EXPERIMENT</span>
 
             <span className="text-[#C8FF00]">
               AVAILABLE FOR PROJECTS
             </span>
 
-            <span>
-              RIZKY/002 — 2026
-            </span>
-
+            <span>RIZKY/002 — 2026</span>
           </div>
-
         </footer>
-
       </div>
     </main>
   );
