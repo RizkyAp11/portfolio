@@ -68,14 +68,19 @@ export default function Home() {
   }, []);
 
   /* =========================================================
-     SUBTLE DESKTOP CURSOR
+     SMOOTH DESKTOP CURSOR
   ========================================================= */
   useEffect(() => {
+    let animationFrame = 0;
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
     const handleMouseMove = (event: MouseEvent) => {
-      setCursorPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
+      targetX = event.clientX;
+      targetY = event.clientY;
 
       setCursorVisible(true);
     };
@@ -84,8 +89,25 @@ export default function Home() {
       setCursorVisible(false);
     };
 
+    const animateCursor = () => {
+      currentX += (targetX - currentX) * 0.18;
+      currentY += (targetY - currentY) * 0.18;
+
+      setCursorPosition({
+        x: currentX,
+        y: currentY,
+      });
+
+      animationFrame = requestAnimationFrame(animateCursor);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    document.documentElement.addEventListener("mouseleave", handleMouseLeave);
+    document.documentElement.addEventListener(
+      "mouseleave",
+      handleMouseLeave,
+    );
+
+    animationFrame = requestAnimationFrame(animateCursor);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -93,16 +115,20 @@ export default function Home() {
         "mouseleave",
         handleMouseLeave,
       );
+
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F3F2ED]">
-      {/* SUBTLE CURSOR */}
+      {/* =====================================================
+          SUBTLE CURSOR
+      ===================================================== */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none fixed left-0 top-0 z-[100] hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C8FF00]/70 transition-opacity duration-200 md:block ${
-          cursorVisible ? "opacity-100" : "opacity-0"
+        className={`pointer-events-none fixed left-0 top-0 z-[100] hidden h-3 w-3 rounded-full border border-[#C8FF00]/70 transition-opacity duration-200 md:block ${
+          cursorVisible ? "scale-100 opacity-100" : "scale-75 opacity-0"
         }`}
         style={{
           transform: `translate(${cursorPosition.x}px, ${cursorPosition.y}px) translate(-50%, -50%)`,
@@ -118,9 +144,12 @@ export default function Home() {
             <a
               href="#home"
               onClick={closeMenu}
-              className="font-mono text-sm font-bold transition-all duration-200 hover:text-[#C8FF00]"
+              className="group font-mono text-sm font-bold transition-colors duration-300 hover:text-[#C8FF00]"
             >
-              RIZKY<span className="text-[#C8FF00]">/001</span>
+              RIZKY
+              <span className="text-[#C8FF00] transition-opacity duration-300 group-hover:opacity-70">
+                /001
+              </span>
             </a>
 
             {/* DESKTOP NAV */}
@@ -132,7 +161,7 @@ export default function Home() {
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`relative transition-colors duration-200 ${
+                    className={`group relative transition-colors duration-300 ${
                       isActive
                         ? "text-[#C8FF00]"
                         : "text-[#A6A6A6] hover:text-[#C8FF00]"
@@ -142,7 +171,9 @@ export default function Home() {
 
                     <span
                       className={`absolute -bottom-1 left-0 h-px bg-[#C8FF00] transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0"
+                        isActive
+                          ? "w-full"
+                          : "w-0 group-hover:w-full"
                       }`}
                     />
                   </a>
@@ -156,11 +187,11 @@ export default function Home() {
               ONLINE
             </div>
 
-            {/* MOBILE MENU BUTTON */}
+            {/* MOBILE MENU */}
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="font-mono text-[9px] text-[#A6A6A6] transition-colors hover:text-[#C8FF00] md:hidden"
+              className="font-mono text-[9px] text-[#A6A6A6] transition-all duration-300 hover:text-[#C8FF00] active:scale-95 md:hidden"
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
             >
@@ -185,16 +216,16 @@ export default function Home() {
                     key={item.id}
                     href={`#${item.id}`}
                     onClick={closeMenu}
-                    className={`group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] transition-colors ${
+                    className={`group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-[10px] transition-all duration-300 ${
                       isActive
                         ? "text-[#C8FF00]"
-                        : "text-[#A6A6A6] hover:text-[#C8FF00]"
+                        : "text-[#A6A6A6] hover:px-1 hover:text-[#C8FF00]"
                     }`}
                   >
                     {item.label}
 
                     <span
-                      className={`transition-transform duration-200 group-hover:translate-x-1 ${
+                      className={`transition-transform duration-300 group-hover:translate-x-1 ${
                         isActive ? "text-[#C8FF00]" : ""
                       }`}
                     >
@@ -248,16 +279,16 @@ export default function Home() {
                 THE WEB.
               </p>
 
-              <div className="mt-5 h-[2px] w-8 bg-[#C8FF00]" />
+              <div className="mt-5 h-[2px] w-8 bg-[#C8FF00] transition-all duration-500 hover:w-12" />
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <a
                 href="#projects"
-                className="group inline-flex items-center justify-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-[10px] font-bold text-[#0A0A0A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-[#C8FF00]"
+                className="group inline-flex items-center justify-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-[10px] font-bold text-[#0A0A0A] transition-all duration-300 hover:-translate-y-1 hover:bg-transparent hover:text-[#C8FF00] active:translate-y-0"
               >
                 VIEW PROJECTS
-                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1.5">
                   →
                 </span>
               </a>
@@ -266,10 +297,10 @@ export default function Home() {
                 href="https://github.com/RizkyAp11"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center border border-[#F3F2ED]/30 px-5 py-3 font-mono text-[10px] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C8FF00] hover:text-[#C8FF00]"
+                className="group inline-flex items-center justify-center border border-[#F3F2ED]/30 px-5 py-3 font-mono text-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-[#C8FF00] hover:text-[#C8FF00] active:translate-y-0"
               >
                 GITHUB
-                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1.5">
                   ↗
                 </span>
               </a>
@@ -284,7 +315,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CENTER — PHOTO */}
+          {/* CENTER PHOTO */}
           <div className="group relative min-h-[400px] overflow-hidden border-b border-[#F3F2ED]/20 sm:min-h-[500px] md:min-h-0 md:border-b-0 md:border-r">
             <img
               src="/hero.jpg"
@@ -292,11 +323,11 @@ export default function Home() {
               className="absolute inset-0 h-full w-full object-cover object-center grayscale transition-transform duration-700 ease-out group-hover:scale-[1.015]"
             />
 
-            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover:bg-black/5" />
 
-            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-all duration-500 group-hover:scale-[1.01] group-hover:border-[#C8FF00]/40" />
+            <div className="absolute left-[12%] top-[12%] h-[65%] w-[65%] border border-white/25 transition-all duration-500 group-hover:scale-[1.015] group-hover:border-[#C8FF00]/40" />
 
-            <div className="absolute bottom-[16%] right-[12%] h-[30%] w-[34%] border border-white/20 transition-colors duration-500 group-hover:border-[#C8FF00]/40" />
+            <div className="absolute bottom-[16%] right-[12%] h-[30%] w-[34%] border border-white/20 transition-all duration-500 group-hover:-translate-x-1 group-hover:border-[#C8FF00]/40" />
 
             {/* CROSS 1 */}
             <div className="absolute left-[7%] top-[48%] h-8 w-8 transition-transform duration-500 group-hover:rotate-45">
@@ -305,13 +336,13 @@ export default function Home() {
             </div>
 
             {/* CROSS 2 */}
-            <div className="absolute left-[48%] top-[51%] h-7 w-7">
+            <div className="absolute left-[48%] top-[51%] h-7 w-7 transition-transform duration-500 group-hover:-rotate-45">
               <div className="absolute left-1/2 top-0 h-7 w-px -translate-x-1/2 bg-[#C8FF00]" />
               <div className="absolute left-0 top-1/2 h-px w-7 -translate-y-1/2 bg-[#C8FF00]" />
             </div>
 
             {/* SYSTEM LABEL */}
-            <div className="absolute right-0 top-0 border-b border-l border-[#F3F2ED]/30 bg-[#0A0A0A]/90 px-3 py-2 font-mono text-[8px] leading-3">
+            <div className="absolute right-0 top-0 border-b border-l border-[#F3F2ED]/30 bg-[#0A0A0A]/90 px-3 py-2 font-mono text-[8px] leading-3 transition-colors duration-300 group-hover:border-[#C8FF00]/50">
               SYS/002
               <br />
               WEB_INTERFACE
@@ -319,11 +350,11 @@ export default function Home() {
               v2.0
             </div>
 
-            <div className="absolute bottom-0 left-0 border-r border-t border-[#F3F2ED]/30 bg-[#0A0A0A]/80 px-4 py-2 font-mono text-[8px] text-white/70">
+            <div className="absolute bottom-0 left-0 border-r border-t border-[#F3F2ED]/30 bg-[#0A0A0A]/80 px-4 py-2 font-mono text-[8px] text-white/70 transition-colors duration-300 group-hover:text-[#C8FF00]">
               VISUAL_FIELD / 001
             </div>
 
-            <div className="absolute bottom-[16%] right-[12%] bg-[#0A0A0A]/80 px-3 py-2 font-mono text-[8px] text-white/70">
+            <div className="absolute bottom-[16%] right-[12%] bg-[#0A0A0A]/80 px-3 py-2 font-mono text-[8px] text-white/70 transition-transform duration-500 group-hover:-translate-y-1">
               RIZKY/002
             </div>
           </div>
@@ -335,7 +366,7 @@ export default function Home() {
             </div>
 
             <div className="mt-12 max-w-[180px] md:mt-0">
-              <p className="text-xl font-medium leading-6">
+              <p className="text-xl font-medium leading-6 transition-transform duration-500 hover:translate-x-1">
                 TURN
                 <br />
                 IDEAS
@@ -349,7 +380,7 @@ export default function Home() {
             </div>
 
             <div className="mt-16 md:mt-0">
-              <div className="mb-5 h-8 w-28 bg-[repeating-linear-gradient(90deg,#F3F2ED_0px,#F3F2ED_1px,transparent_1px,transparent_3px)] opacity-70" />
+              <div className="mb-5 h-8 w-28 bg-[repeating-linear-gradient(90deg,#F3F2ED_0px,#F3F2ED_1px,transparent_1px,transparent_3px)] opacity-70 transition-all duration-500 hover:w-32" />
 
               <p className="font-mono text-[9px] text-[#A6A6A6]">
                 V2 / BUILD 001
@@ -371,7 +402,7 @@ export default function Home() {
             </p>
 
             <div className="max-w-2xl">
-              <h2 className="text-4xl font-bold tracking-tight md:text-6xl">
+              <h2 className="text-4xl font-bold tracking-tight transition-colors duration-300 hover:text-[#C8FF00] md:text-6xl">
                 I&apos;M RIZKY.
               </h2>
 
@@ -389,22 +420,22 @@ export default function Home() {
 
           <div className="p-5 md:p-10">
             <div className="grid grid-cols-2 gap-y-10 font-mono text-[10px]">
-              <div>
+              <div className="transition-transform duration-300 hover:translate-x-1">
                 <p className="text-[#C8FF00]">AGE</p>
                 <p className="mt-2 text-[#A6A6A6]">17</p>
               </div>
 
-              <div>
+              <div className="transition-transform duration-300 hover:translate-x-1">
                 <p className="text-[#C8FF00]">BASE</p>
                 <p className="mt-2 text-[#A6A6A6]">INDONESIA</p>
               </div>
 
-              <div>
+              <div className="transition-transform duration-300 hover:translate-x-1">
                 <p className="text-[#C8FF00]">STATUS</p>
                 <p className="mt-2 text-[#A6A6A6]">STUDENT</p>
               </div>
 
-              <div>
+              <div className="transition-transform duration-300 hover:translate-x-1">
                 <p className="text-[#C8FF00]">FOCUS</p>
 
                 <p className="mt-2 leading-5 text-[#A6A6A6]">
@@ -446,7 +477,7 @@ export default function Home() {
                   03 — SELECTED WORK
                 </p>
 
-                <h2 className="mt-4 text-[2.5rem] font-bold leading-none tracking-[-0.04em] md:mt-5 md:text-6xl md:tracking-tight">
+                <h2 className="mt-4 text-[2.5rem] font-bold leading-none tracking-[-0.04em] transition-colors duration-300 hover:text-[#C8FF00] md:mt-5 md:text-6xl md:tracking-tight">
                   PROJECTS.
                 </h2>
               </div>
@@ -460,20 +491,18 @@ export default function Home() {
             {projects.map((project) => (
               <div
                 key={project.number}
-                className="group mt-10 border-y border-[#F3F2ED]/20 transition-all duration-300 hover:border-[#C8FF00]/50 md:mt-12"
+                className="group mt-10 border-y border-[#F3F2ED]/20 transition-all duration-500 hover:-translate-y-0.5 hover:border-[#C8FF00]/60 md:mt-12"
               >
                 <div className="grid md:grid-cols-[80px_1fr_120px]">
-                  {/* NUMBER */}
-                  <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-all duration-300 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
+                  <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-all duration-500 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
                     {project.number}
                   </div>
 
-                  {/* CONTENT */}
-                  <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-8">
+                  <div className="border-b border-[#F3F2ED]/20 p-5 transition-transform duration-500 group-hover:translate-x-1 md:border-b-0 md:border-r md:p-8">
                     <div className="flex items-start justify-between gap-5">
                       <div>
                         <div className="mb-3 flex flex-wrap items-center gap-3">
-                          <span className="border border-[#C8FF00]/40 px-2 py-1 font-mono text-[8px] text-[#C8FF00]">
+                          <span className="border border-[#C8FF00]/40 px-2 py-1 font-mono text-[8px] text-[#C8FF00] transition-all duration-300 group-hover:border-[#C8FF00]">
                             {project.status}
                           </span>
 
@@ -482,7 +511,7 @@ export default function Home() {
                           </span>
                         </div>
 
-                        <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00] md:text-3xl">
+                        <h3 className="text-2xl font-bold transition-all duration-500 group-hover:translate-x-1 group-hover:text-[#C8FF00] md:text-3xl">
                           {project.title}
                         </h3>
 
@@ -491,17 +520,16 @@ export default function Home() {
                         </p>
                       </div>
 
-                      <span className="font-mono text-[10px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
+                      <span className="font-mono text-[10px] text-[#A6A6A6] transition-all duration-500 group-hover:-translate-x-1 group-hover:text-[#C8FF00]">
                         {project.year}
                       </span>
                     </div>
 
-                    {/* TECH STACK */}
                     <div className="mt-7 flex flex-wrap gap-2">
                       {project.stack.map((technology) => (
                         <span
                           key={technology}
-                          className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30"
+                          className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-all duration-300 group-hover:border-[#C8FF00]/30 group-hover:text-[#F3F2ED]"
                         >
                           {technology}
                         </span>
@@ -509,30 +537,27 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* ACTIONS */}
                   <div className="flex flex-col items-stretch justify-center gap-2 p-5 sm:flex-row md:flex-col md:p-6">
-                    {/* LIVE */}
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/button border border-[#C8FF00] px-4 py-3 text-center font-mono text-[9px] text-[#C8FF00] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#C8FF00] hover:text-[#0A0A0A]"
+                      className="group/button border border-[#C8FF00] px-4 py-3 text-center font-mono text-[9px] text-[#C8FF00] transition-all duration-300 hover:-translate-y-1 hover:bg-[#C8FF00] hover:text-[#0A0A0A] active:translate-y-0"
                     >
                       LIVE
-                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1">
+                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1.5">
                         ↗
                       </span>
                     </a>
 
-                    {/* SOURCE */}
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/button border border-[#F3F2ED]/30 px-4 py-3 text-center font-mono text-[9px] text-[#A6A6A6] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C8FF00] hover:text-[#C8FF00]"
+                      className="group/button border border-[#F3F2ED]/30 px-4 py-3 text-center font-mono text-[9px] text-[#A6A6A6] transition-all duration-300 hover:-translate-y-1 hover:border-[#C8FF00] hover:text-[#C8FF00] active:translate-y-0"
                     >
                       SOURCE
-                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1">
+                      <span className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1.5">
                         ↗
                       </span>
                     </a>
@@ -542,15 +567,17 @@ export default function Home() {
             ))}
 
             {/* PROJECT 02 */}
-            <div className="border-b border-[#F3F2ED]/20">
+            <div className="group border-b border-[#F3F2ED]/20 transition-all duration-500 hover:border-[#C8FF00]/30">
               <div className="grid md:grid-cols-[80px_1fr_120px]">
-                <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
+                <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] transition-all duration-300 group-hover:text-[#C8FF00] md:border-b-0 md:border-r">
                   02
                 </div>
 
-                <div className="p-5 md:border-r md:p-8">
+                <div className="p-5 transition-transform duration-500 group-hover:translate-x-1 md:border-r md:p-8">
                   <div className="flex items-center justify-between gap-5">
-                    <h3 className="text-xl font-bold">COMING SOON</h3>
+                    <h3 className="text-xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00]">
+                      COMING SOON
+                    </h3>
 
                     <span className="font-mono text-[10px] text-[#A6A6A6]">
                       —
@@ -563,7 +590,7 @@ export default function Home() {
                 </div>
 
                 <div className="hidden items-center justify-center p-6 md:flex">
-                  <span className="font-mono text-[9px] text-[#A6A6A6]">
+                  <span className="font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                     LOCKED
                   </span>
                 </div>
@@ -571,15 +598,17 @@ export default function Home() {
             </div>
 
             {/* PROJECT 03 */}
-            <div className="border-b border-[#F3F2ED]/20">
+            <div className="group border-b border-[#F3F2ED]/20 transition-all duration-500 hover:border-[#C8FF00]/30">
               <div className="grid md:grid-cols-[80px_1fr_120px]">
-                <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
+                <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] transition-all duration-300 group-hover:text-[#C8FF00] md:border-b-0 md:border-r">
                   03
                 </div>
 
-                <div className="p-5 md:border-r md:p-8">
+                <div className="p-5 transition-transform duration-500 group-hover:translate-x-1 md:border-r md:p-8">
                   <div className="flex items-center justify-between gap-5">
-                    <h3 className="text-xl font-bold">COMING SOON</h3>
+                    <h3 className="text-xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00]">
+                      COMING SOON
+                    </h3>
 
                     <span className="font-mono text-[10px] text-[#A6A6A6]">
                       —
@@ -592,7 +621,7 @@ export default function Home() {
                 </div>
 
                 <div className="hidden items-center justify-center p-6 md:flex">
-                  <span className="font-mono text-[9px] text-[#A6A6A6]">
+                  <span className="font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                     LOCKED
                   </span>
                 </div>
@@ -614,7 +643,7 @@ export default function Home() {
                 04 — CONTACT
               </p>
 
-              <h2 className="mt-8 max-w-xl text-4xl font-bold leading-none tracking-tight md:text-6xl">
+              <h2 className="mt-8 max-w-xl text-4xl font-bold leading-none tracking-tight transition-colors duration-300 hover:text-[#C8FF00] md:text-6xl">
                 LET&apos;S
                 <br />
                 BUILD
@@ -630,7 +659,6 @@ export default function Home() {
               </p>
 
               <div className="mt-10">
-                {/* GITHUB */}
                 <a
                   href="https://github.com/RizkyAp11"
                   target="_blank"
@@ -639,24 +667,22 @@ export default function Home() {
                 >
                   <span>GITHUB</span>
 
-                  <span className="break-all text-[#A6A6A6] group-hover:text-[#C8FF00]">
+                  <span className="break-all text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                     github.com/RizkyAp11 ↗
                   </span>
                 </a>
 
-                {/* EMAIL */}
                 <a
                   href="mailto:rizkyadityapratama421@gmail.com"
                   className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-[10px] transition-all duration-300 hover:px-2 hover:text-[#C8FF00] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span>EMAIL</span>
 
-                  <span className="break-all text-[#A6A6A6] group-hover:text-[#C8FF00]">
+                  <span className="break-all text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                     rizkyadityapratama421@gmail.com ↗
                   </span>
                 </a>
 
-                {/* INSTAGRAM */}
                 <a
                   href="https://instagram.com/adit.ptama"
                   target="_blank"
@@ -665,7 +691,7 @@ export default function Home() {
                 >
                   <span>INSTAGRAM</span>
 
-                  <span className="text-[#A6A6A6] group-hover:text-[#C8FF00]">
+                  <span className="text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
                     @adit.ptama ↗
                   </span>
                 </a>
