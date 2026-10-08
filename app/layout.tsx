@@ -27,13 +27,12 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  authors: [
-    {
-      name: "Rizky Aditya Pratama",
-    },
-  ],
-
+  authors: [{ name: "Rizky Aditya Pratama" }],
   creator: "Rizky Aditya Pratama",
+
+  verification: {
+    google: "zacg9J_0q6gSv-cV0sZGUBEHfxN3BewbCxilwY7iHhY",
+  },
 
   openGraph: {
     title: "Rizky Aditya Pratama — Digital Portfolio",
@@ -57,7 +56,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
