@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -13,6 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfoliorizky.vercel.app"),
+
   title: "Rizky Aditya Pratama — Digital Portfolio",
   description:
     "Personal portfolio of Rizky Aditya Pratama — showcasing projects, experiments, and progress as a student developer.",
