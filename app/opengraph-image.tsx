@@ -1,7 +1,7 @@
 
 import { ImageResponse } from "next/og";
 
-export const alt = "Rizky Aditya Pratama — Digital Portfolio";
+export const alt = "Rizky Aditya Pratama — Student Frontend Developer";
 
 export const size = {
   width: 1200,
@@ -36,7 +36,7 @@ export default function OpenGraphImage() {
             color: "#C8FF00",
           }}
         >
-          <span>RIZKY/001 — DIGITAL EDITORIAL</span>
+          <span>PORTFOLIO — 2026</span>
           <span>2026 / INDONESIA</span>
         </div>
 
@@ -92,7 +92,7 @@ export default function OpenGraphImage() {
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <span style={{ fontSize: 22, fontWeight: 700 }}>
-              WEB DEVELOPER
+              STUDENT FRONTEND DEVELOPER
             </span>
             <span
               style={{
@@ -101,7 +101,7 @@ export default function OpenGraphImage() {
                 color: "#A6A6A6",
               }}
             >
-              DESIGN / CODE / ITERATE
+              NEXT.JS / TYPESCRIPT / TAILWIND CSS
             </span>
           </div>
 
@@ -112,7 +112,7 @@ export default function OpenGraphImage() {
               color: "#C8FF00",
             }}
           >
-            001 ↗
+            portfoliorizky.vercel.app
           </span>
         </div>
       </div>

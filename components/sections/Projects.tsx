@@ -1,128 +1,155 @@
+import Image from "next/image";
+import { PROJECTS, SITE } from "../../lib/site";
+
 export default function Projects() {
   return (
-    <section id="projects" className="border-t border-[#F3F2ED]/20">
-      <div className="p-6 md:p-10">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="font-mono text-[10px] text-[#A6A6A6]">
-              03 — SELECTED WORK
-            </p>
+    <section
+      id="projects"
+      aria-labelledby="projects-title"
+      className="border-t border-[#F3F2ED]/20"
+    >
+      <div className="p-5 md:p-10">
+        <div>
+          <p className="font-mono text-xs text-[#A6A6A6]">03 — SELECTED WORK</p>
 
-            <h2 className="mt-5 text-4xl font-bold tracking-tight md:text-6xl">
-              PROJECTS.
-            </h2>
-          </div>
-
-          <span className="hidden font-mono text-[9px] text-[#A6A6A6] md:block">
-            001 — 003
-          </span>
+          <h2
+            id="projects-title"
+            className="mt-4 text-[2.5rem] font-bold leading-none tracking-[-0.04em] transition-colors duration-300 hover:text-[#C8FF00] md:mt-5 md:text-6xl md:tracking-tight"
+          >
+            PROJECTS.
+          </h2>
         </div>
 
-        {/* PROJECT 01 */}
-        <div className="group mt-12 border-y border-[#F3F2ED]/20 transition-colors duration-300 hover:border-[#C8FF00]/50">
-          <div className="grid md:grid-cols-[80px_1fr_120px]">
-            <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-colors duration-300 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
-              01
-            </div>
+        {PROJECTS.map((project) => (
+          <article
+            key={project.number}
+            className="group mt-10 border-y border-[#F3F2ED]/20 transition-colors duration-500 hover:border-[#C8FF00]/60 md:mt-12"
+          >
+            <div className="grid md:grid-cols-[80px_1fr_160px]">
+              {/* NUMBER */}
+              <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#C8FF00] transition-colors duration-500 group-hover:bg-[#C8FF00] group-hover:text-[#0A0A0A] md:border-b-0 md:border-r">
+                {project.number}
+              </div>
 
-            <div className="border-b border-[#F3F2ED]/20 p-6 md:border-b-0 md:border-r md:p-8">
-              <div className="flex items-start justify-between gap-5">
-                <div>
-                  <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[#C8FF00] md:text-3xl">
-                    PORTFOLIO WEBSITE
-                  </h3>
-
-                  <p className="mt-4 max-w-xl text-sm leading-6 text-[#A6A6A6]">
-                    A personal portfolio website built from
-                    scratch to document my work, experiments
-                    and progress as a developer.
-                  </p>
+              {/* CONTENT */}
+              <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-8">
+                <div className="mb-3 flex flex-wrap items-center gap-3">
+                  <span className="border border-[#C8FF00]/40 px-2 py-1 font-mono text-[10px] text-[#C8FF00]">
+                    {project.status}
+                  </span>
+                  <span className="font-mono text-[11px] text-[#A6A6A6]">
+                    {project.category}
+                  </span>
+                  <span className="font-mono text-[11px] text-[#8A8A8A]">
+                    {project.year}
+                  </span>
                 </div>
 
-                <span className="font-mono text-[10px] text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
-                  2026
-                </span>
-              </div>
-
-              <div className="mt-7 flex flex-wrap gap-2">
-                {["NEXT.JS", "TYPESCRIPT", "TAILWIND"].map((tech) => (
-                  <span
-                    key={tech}
-                    className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[9px] text-[#A6A6A6] transition-colors duration-300 group-hover:border-[#C8FF00]/30"
-                  >
-                    {tech}
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <h3 className="text-2xl font-bold transition-colors duration-500 group-hover:text-[#C8FF00] md:text-3xl">
+                    {project.title}
+                  </h3>
+                  <span className="font-mono text-[11px] text-[#8A8A8A]">
+                    {project.role}
                   </span>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            <div className="flex items-center justify-center p-6">
-              <a
-                href="#home"
-                className="w-full border border-[#C8FF00] px-4 py-3 text-center font-mono text-[9px] text-[#C8FF00] transition-colors duration-300 hover:bg-[#C8FF00] hover:text-[#0A0A0A] sm:w-auto"
-              >
-                VIEW PROJECT ↗
-              </a>
-            </div>
-          </div>
-        </div>
+                <p className="mt-5 max-w-2xl text-sm leading-6 text-[#A6A6A6]">
+                  {project.summary}
+                </p>
 
-        {/* PROJECT 02 */}
-        <div className="border-b border-[#F3F2ED]/20">
-          <div className="grid md:grid-cols-[80px_1fr_120px]">
-            <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
-              02
-            </div>
+                {project.image ? (
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    sizes="(min-width: 768px) 60vw, 100vw"
+                    className="mt-6 h-auto w-full border border-[#F3F2ED]/20"
+                  />
+                ) : null}
 
-            <div className="p-6 md:border-r md:p-8">
-              <div className="flex items-center justify-between gap-5">
-                <h3 className="text-xl font-bold">COMING SOON</h3>
+                <p className="mt-6 font-mono text-[11px] text-[#C8FF00]">
+                  WHAT&apos;S INSIDE
+                </p>
+                <ul className="mt-3 max-w-2xl space-y-2 text-sm leading-6 text-[#A6A6A6]">
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight} className="flex gap-3">
+                      <span aria-hidden="true" className="text-[#C8FF00]">
+                        —
+                      </span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                <span className="font-mono text-[10px] text-[#A6A6A6]">
-                  —
-                </span>
-              </div>
-
-              <p className="mt-3 font-mono text-[9px] text-[#A6A6A6]">
-                NEXT PROJECT IN DEVELOPMENT
-              </p>
-            </div>
-
-            <div className="hidden items-center justify-center p-6 md:flex">
-              <span className="font-mono text-[9px] text-[#A6A6A6]">
-                LOCKED
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* PROJECT 03 */}
-        <div className="border-b border-[#F3F2ED]/20">
-          <div className="grid md:grid-cols-[80px_1fr_120px]">
-            <div className="border-b border-[#F3F2ED]/20 p-5 font-mono text-sm text-[#A6A6A6] md:border-b-0 md:border-r">
-              03
-            </div>
-
-            <div className="p-6 md:border-r md:p-8">
-              <div className="flex items-center justify-between gap-5">
-                <h3 className="text-xl font-bold">COMING SOON</h3>
-
-                <span className="font-mono text-[10px] text-[#A6A6A6]">
-                  —
-                </span>
+                <ul className="mt-7 flex flex-wrap gap-2">
+                  {project.stack.map((technology) => (
+                    <li
+                      key={technology}
+                      className="border border-[#F3F2ED]/20 px-3 py-1 font-mono text-[11px] text-[#A6A6A6]"
+                    >
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <p className="mt-3 font-mono text-[9px] text-[#A6A6A6]">
-                SOMETHING IS BEING BUILT
-              </p>
-            </div>
+              {/* ACTIONS */}
+              <div className="flex flex-col justify-center gap-2 p-5">
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/button border border-[#C8FF00] px-4 py-3 text-center font-mono text-[11px] text-[#C8FF00] transition-all duration-300 hover:-translate-y-1 hover:bg-[#C8FF00] hover:text-[#0A0A0A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C8FF00] active:translate-y-0"
+                  >
+                    VIEW LIVE
+                    <span
+                      aria-hidden="true"
+                      className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1.5"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                ) : null}
 
-            <div className="hidden items-center justify-center p-6 md:flex">
-              <span className="font-mono text-[9px] text-[#A6A6A6]">
-                LOCKED
-              </span>
+                {project.repoUrl ? (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/button border border-[#F3F2ED]/30 px-4 py-3 text-center font-mono text-[11px] text-[#A6A6A6] transition-all duration-300 hover:-translate-y-1 hover:border-[#C8FF00] hover:text-[#C8FF00] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C8FF00] active:translate-y-0"
+                  >
+                    SOURCE CODE
+                    <span
+                      aria-hidden="true"
+                      className="ml-1 inline-block transition-transform duration-300 group-hover/button:translate-x-1.5"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                ) : null}
+              </div>
             </div>
-          </div>
+          </article>
+        ))}
+
+        <div className="border-b border-[#F3F2ED]/20 py-6">
+          <a
+            href={SITE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center font-mono text-[11px] tracking-[0.12em] text-[#A6A6A6] transition-colors duration-300 hover:text-[#C8FF00] focus-visible:text-[#C8FF00] focus-visible:outline-none"
+          >
+            MORE CODE AND EXPERIMENTS ON GITHUB
+            <span
+              aria-hidden="true"
+              className="ml-2 transition-transform duration-300 group-hover:translate-x-1.5"
+            >
+              ↗
+            </span>
+          </a>
         </div>
       </div>
     </section>
