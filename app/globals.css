@@ -1,14 +1,25 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens. Change a color here and it changes everywhere.
+ * The accent is used sparingly on purpose: primary button, active nav item,
+ * availability dot, focus ring and text selection.
+ */
 :root {
-  --background: #0a0a0a;
-  --foreground: #f3f2ed;
+  --canvas: #0a0a0a;
+  --ink: #f3f2ed;
+  --muted: #a6a6a6;
+  --dim: #8a8a8a;
+  --accent: #c8ff00;
   color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -16,14 +27,25 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 1rem;
-  background: var(--background);
+  background: var(--canvas);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--canvas);
+  color: var(--ink);
   /* Geist is loaded in layout.tsx; Arial is only the fallback. */
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--canvas);
+}
+
+/* One consistent, visible focus style for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* Respect visitors who ask their system for less motion. */

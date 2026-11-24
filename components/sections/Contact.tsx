@@ -10,7 +10,7 @@ interface Channel {
 export default function Contact() {
   const channels: Channel[] = [
     {
-      label: "EMAIL",
+      label: "Email",
       value: SITE.email,
       href: `mailto:${SITE.email}`,
       external: false,
@@ -19,7 +19,7 @@ export default function Contact() {
 
   if (SITE.linkedin) {
     channels.push({
-      label: "LINKEDIN",
+      label: "LinkedIn",
       value: SITE.linkedin.replace(/^https?:\/\/(www\.)?/, ""),
       href: SITE.linkedin,
       external: true,
@@ -28,13 +28,13 @@ export default function Contact() {
 
   channels.push(
     {
-      label: "GITHUB",
+      label: "GitHub",
       value: SITE.githubHandle,
       href: SITE.github,
       external: true,
     },
     {
-      label: "INSTAGRAM",
+      label: "Instagram",
       value: SITE.instagramHandle,
       href: SITE.instagram,
       external: true,
@@ -45,40 +45,34 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="border-t border-[#F3F2ED]/20"
+      className="border-t border-ink/20"
     >
       <div className="grid md:grid-cols-2">
-        <div className="border-b border-[#F3F2ED]/20 p-5 md:border-b-0 md:border-r md:p-10">
-          <p className="font-mono text-xs text-[#A6A6A6]">04 — CONTACT</p>
+        <div className="border-b border-ink/20 p-5 md:border-b-0 md:border-r md:p-10">
+          <p className="font-mono text-xs text-dim">Contact</p>
 
           <h2
             id="contact-title"
-            className="mt-8 max-w-xl text-4xl font-bold leading-none tracking-tight transition-colors duration-300 hover:text-[#C8FF00] md:text-6xl"
+            className="mt-8 max-w-xl text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl"
           >
-            HAVE AN
+            Got a project?
             <br />
-            IDEA?
-            <br />
-            LET&apos;S BUILD.
+            Let&apos;s talk.
           </h2>
 
-          <p className="mt-8 max-w-md text-sm leading-6 text-[#A6A6A6]">
-            Open to {SITE.openTo.toLowerCase()}. Tell me what you&apos;re
+          <p className="mt-8 max-w-md text-sm leading-6 text-muted">
+            I&apos;m open to {SITE.openTo.toLowerCase()}. Tell me what you&apos;re
             building and what you need. A short message is enough to start.
           </p>
         </div>
 
         <div className="p-5 md:p-10">
-          <p className="font-mono text-[11px] text-[#C8FF00]">
-            DIRECT CHANNELS
-          </p>
-
-          <p className="mt-3 max-w-md text-sm leading-6 text-[#A6A6A6]">
+          <p className="max-w-md text-sm leading-6 text-muted">
             Email is the fastest way to reach me. GitHub has my code and
             ongoing work.
           </p>
 
-          <ul className="mt-8 border-b border-[#F3F2ED]/20">
+          <ul className="mt-8 border-b border-ink/20">
             {channels.map((channel) => (
               <li key={channel.label}>
                 <a
@@ -86,10 +80,12 @@ export default function Contact() {
                   {...(channel.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="group flex flex-col gap-2 border-t border-[#F3F2ED]/20 py-5 font-mono text-xs transition-all duration-300 hover:px-2 hover:text-[#C8FF00] focus-visible:text-[#C8FF00] focus-visible:outline-none sm:flex-row sm:items-center sm:justify-between"
+                  className="group flex flex-col gap-1 border-t border-ink/20 py-5 text-sm sm:flex-row sm:items-center sm:justify-between"
                 >
-                  <span>{channel.label}</span>
-                  <span className="break-all text-[#A6A6A6] transition-colors duration-300 group-hover:text-[#C8FF00]">
+                  <span className="font-mono text-xs text-dim">
+                    {channel.label}
+                  </span>
+                  <span className="break-all text-ink underline-offset-4 group-hover:underline">
                     {channel.value}
                     <span aria-hidden="true"> ↗</span>
                   </span>

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Thin progress bar at the top of the page.
+ * Thin reading-progress bar at the top of the page.
  * Updates the DOM directly through a ref (one rAF per scroll burst),
  * so scrolling never triggers a React re-render.
  */
@@ -43,7 +43,7 @@ export default function ScrollProgress() {
     <div
       ref={barRef}
       aria-hidden="true"
-      className="fixed left-0 top-0 z-[110] h-px w-full origin-left bg-[#C8FF00]"
+      className="fixed left-0 top-0 z-[110] h-px w-full origin-left bg-accent"
       style={{ transform: "scaleX(0)" }}
     />
   );

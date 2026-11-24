@@ -31,8 +31,7 @@ app/
 components/
   layout/               Header (client: active section + mobile menu), Footer
   sections/             Hero, About, Projects, Contact (server components)
-  CursorFollower.tsx    Custom cursor, ref-driven, mouse devices only
-  ScrollProgress.tsx    Scroll bar, ref-driven
+  ScrollProgress.tsx    Reading-progress bar, ref-driven
 lib/
   site.ts               All personal content: copy, links, stack, projects
 ```
@@ -48,6 +47,15 @@ Almost everything you would want to change lives in [`lib/site.ts`](lib/site.ts)
 - **Projects** — add an object to `PROJECTS`. Each project supports a summary,
   concrete `highlights`, stack tags, live/source links and an optional
   screenshot (`image`, with real `width`/`height`).
+
+## Colors
+
+Design tokens live at the top of [`app/globals.css`](app/globals.css)
+(`--canvas`, `--ink`, `--muted`, `--dim`, `--accent`) and are exposed as Tailwind
+colors (`bg-canvas`, `text-ink`, `text-muted`, `text-dim`, `bg-accent`, ...).
+The accent is intentionally used in only a few places (primary button, active nav
+item, availability dot, focus ring, selection). To re-theme the whole site, change
+the values in `:root`.
 
 ## Notes
 
