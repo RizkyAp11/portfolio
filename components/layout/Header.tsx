@@ -5,10 +5,10 @@ import { NAV } from "../../lib/site";
 
 function AvailabilityDot() {
   return (
-    <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C8FF00]/50" />
-      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#C8FF00]" />
-    </span>
+    <span
+      aria-hidden="true"
+      className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
+    />
   );
 }
 
@@ -52,23 +52,17 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="border-b border-[#F3F2ED]/20 px-5 py-4 md:px-8">
+    <header className="border-b border-ink/20 px-5 py-4 md:px-8">
       <div className="flex items-center justify-between">
         <a
           href="#home"
           onClick={closeMenu}
-          className="group font-mono text-sm font-bold transition-colors duration-300 hover:text-[#C8FF00] focus-visible:text-[#C8FF00] focus-visible:outline-none"
+          className="text-sm font-bold text-ink"
         >
-          RIZKY
-          <span className="text-[#C8FF00] transition-opacity duration-300 group-hover:opacity-70">
-            /001
-          </span>
+          Rizky Aditya
         </a>
 
-        <nav
-          aria-label="Primary"
-          className="hidden gap-8 font-mono text-xs md:flex"
-        >
+        <nav aria-label="Primary" className="hidden gap-8 text-sm md:flex">
           {NAV.map((item) => {
             const isActive = activeSection === item.id;
 
@@ -77,38 +71,32 @@ export default function Header() {
                 key={item.id}
                 href={`#${item.id}`}
                 aria-current={isActive ? "location" : undefined}
-                className={`group relative transition-colors duration-300 focus-visible:text-[#C8FF00] focus-visible:outline-none ${
+                className={`underline-offset-8 transition-colors duration-200 hover:text-ink ${
                   isActive
-                    ? "text-[#C8FF00]"
-                    : "text-[#A6A6A6] hover:text-[#C8FF00]"
+                    ? "text-ink underline decoration-accent decoration-2"
+                    : "text-muted"
                 }`}
               >
                 {item.label}
-                <span
-                  aria-hidden="true"
-                  className={`absolute -bottom-1 left-0 h-px bg-[#C8FF00] transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
-                />
               </a>
             );
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 font-mono text-[11px] text-[#A6A6A6] md:flex">
+        <div className="hidden items-center gap-2 text-sm text-muted md:flex">
           <AvailabilityDot />
-          OPEN TO PROJECTS
+          Open to projects
         </div>
 
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="py-2 font-mono text-xs text-[#A6A6A6] transition-colors duration-300 hover:text-[#C8FF00] focus-visible:text-[#C8FF00] focus-visible:outline-none md:hidden"
+          className="py-2 text-sm text-muted transition-colors duration-200 hover:text-ink md:hidden"
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
         >
-          {menuOpen ? "CLOSE ×" : "MENU +"}
+          {menuOpen ? "Close" : "Menu"}
         </button>
       </div>
 
@@ -120,7 +108,7 @@ export default function Header() {
           menuOpen ? "max-h-[360px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav aria-label="Mobile" className="mt-4 border-t border-[#F3F2ED]/20 pt-2">
+        <nav aria-label="Mobile" className="mt-4 border-t border-ink/20 pt-2">
           {NAV.map((item) => {
             const isActive = activeSection === item.id;
 
@@ -130,26 +118,19 @@ export default function Header() {
                 href={`#${item.id}`}
                 onClick={closeMenu}
                 aria-current={isActive ? "location" : undefined}
-                className={`group flex items-center justify-between border-b border-[#F3F2ED]/10 py-4 font-mono text-xs transition-colors duration-300 focus-visible:text-[#C8FF00] focus-visible:outline-none ${
-                  isActive
-                    ? "text-[#C8FF00]"
-                    : "text-[#A6A6A6] hover:text-[#C8FF00]"
+                className={`flex items-center justify-between border-b border-ink/10 py-4 text-sm transition-colors duration-200 hover:text-ink ${
+                  isActive ? "text-ink" : "text-muted"
                 }`}
               >
                 {item.label}
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  ↗
-                </span>
+                {isActive ? <AvailabilityDot /> : null}
               </a>
             );
           })}
 
-          <div className="flex items-center gap-2 py-4 font-mono text-[11px] text-[#A6A6A6]">
+          <div className="flex items-center gap-2 py-4 text-sm text-muted">
             <AvailabilityDot />
-            OPEN TO PROJECTS
+            Open to projects
           </div>
         </nav>
       </div>

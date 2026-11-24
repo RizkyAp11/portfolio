@@ -8,89 +8,38 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] px-4 py-4 text-[#F3F2ED] md:px-7 md:py-6">
-      <div className="flex min-h-[calc(100vh-2rem)] flex-col border border-[#F3F2ED]/20 md:min-h-[calc(100vh-3rem)]">
-        {/* Header */}
-        <header className="flex items-center justify-between border-b border-[#F3F2ED]/20 px-5 py-4 md:px-8">
-          <Link
-            href="/"
-            className="font-mono text-sm font-bold transition-colors duration-200 hover:text-[#C8FF00] focus-visible:text-[#C8FF00] focus-visible:outline-none"
-          >
-            RIZKY<span className="text-[#C8FF00]">/404</span>
+    <main className="min-h-screen bg-canvas px-4 py-4 text-ink md:px-7 md:py-6">
+      <div className="flex min-h-[calc(100vh-2rem)] flex-col border border-ink/20 md:min-h-[calc(100vh-3rem)]">
+        <header className="border-b border-ink/20 px-5 py-4 md:px-8">
+          <Link href="/" className="text-sm font-bold text-ink">
+            Rizky Aditya
           </Link>
-
-          <span className="font-mono text-[11px] text-[#A6A6A6]">
-            ERROR / ROUTE NOT FOUND
-          </span>
         </header>
 
-        {/* Main */}
-        <section className="relative flex flex-1 items-center justify-center overflow-hidden px-5 py-16 md:px-10">
-          {/* Decorative grid */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-30"
-          >
-            <div className="absolute left-1/4 top-0 h-full border-l border-dashed border-[#F3F2ED]/10" />
-            <div className="absolute left-1/2 top-0 h-full border-l border-dashed border-[#F3F2ED]/10" />
-            <div className="absolute left-3/4 top-0 h-full border-l border-dashed border-[#F3F2ED]/10" />
+        <section className="flex flex-1 items-center px-5 py-16 md:px-10">
+          <div className="w-full max-w-4xl">
+            <p className="font-mono text-xs text-dim">Error 404</p>
 
-            <div className="absolute left-0 top-1/4 w-full border-t border-dashed border-[#F3F2ED]/10" />
-            <div className="absolute left-0 top-1/2 w-full border-t border-dashed border-[#F3F2ED]/10" />
-            <div className="absolute left-0 top-3/4 w-full border-t border-dashed border-[#F3F2ED]/10" />
-          </div>
+            <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+              This page doesn&apos;t exist.
+            </h1>
 
-          {/* Center content */}
-          <div className="relative z-10 w-full max-w-4xl">
-            <div className="flex items-center gap-3 font-mono text-[11px] text-[#A6A6A6]">
-              <span aria-hidden="true" className="h-1.5 w-1.5 bg-[#C8FF00]" />
-              SYSTEM RESPONSE
-              <span aria-hidden="true" className="text-[#C8FF00]">
-                /
-              </span>
-              404
-            </div>
+            <p className="mt-5 max-w-md text-sm leading-6 text-muted">
+              The link may be broken, or the page may have been moved or
+              removed.
+            </p>
 
-            <div className="mt-8 border-y border-[#F3F2ED]/20 py-8 md:py-10">
-              <h1 className="text-[clamp(6rem,18vw,15rem)] font-bold leading-[0.75] tracking-[-0.09em] text-[#F3F2ED]">
-                404
-              </h1>
-            </div>
-
-            <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-              <div>
-                <p className="max-w-xl text-2xl font-bold leading-tight md:text-4xl">
-                  THIS DIGITAL SPACE
-                  <br />
-                  DOESN&apos;T EXIST.
-                </p>
-
-                <p className="mt-5 max-w-md text-sm leading-6 text-[#A6A6A6]">
-                  The page you&apos;re looking for may have been moved,
-                  deleted, or never existed in the first place.
-                </p>
-              </div>
-
-              <Link
-                href="/"
-                className="group inline-flex w-fit items-center border border-[#C8FF00] bg-[#C8FF00] px-5 py-3 font-mono text-xs font-bold text-[#0A0A0A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-[#C8FF00] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C8FF00]"
-              >
-                BACK TO HOME
-                <span
-                  aria-hidden="true"
-                  className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  ↗
-                </span>
-              </Link>
-            </div>
+            <Link
+              href="/"
+              className="mt-8 inline-flex items-center border border-accent bg-accent px-5 py-3 font-mono text-xs font-bold text-canvas transition-colors duration-200 hover:bg-transparent hover:text-accent"
+            >
+              Back to home
+            </Link>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="flex flex-col justify-between gap-2 border-t border-[#F3F2ED]/20 px-5 py-4 font-mono text-[11px] text-[#A6A6A6] sm:flex-row md:px-8">
-          <span>© 2026 RIZKY ADITYA PRATAMA</span>
-          <span className="text-[#C8FF00]">STATUS: 404</span>
+        <footer className="border-t border-ink/20 px-5 py-4 text-sm text-muted md:px-8">
+          © 2026 Rizky Aditya Pratama
         </footer>
       </div>
     </main>

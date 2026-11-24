@@ -1,4 +1,3 @@
-import CursorFollower from "../components/CursorFollower";
 import ScrollProgress from "../components/ScrollProgress";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
@@ -23,7 +22,7 @@ const personJsonLd = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F3F2ED] selection:bg-[#C8FF00] selection:text-[#0A0A0A]">
+    <div className="min-h-screen bg-canvas text-ink">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -32,9 +31,8 @@ export default function Home() {
       />
 
       <ScrollProgress />
-      <CursorFollower />
 
-      <div className="mx-3 my-3 border border-[#F3F2ED]/20 sm:mx-4 sm:my-4 md:mx-7 md:my-6">
+      <div className="mx-3 my-3 border border-ink/20 sm:mx-4 sm:my-4 md:mx-7 md:my-6">
         <Header />
 
         <main id="main">

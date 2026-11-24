@@ -43,7 +43,7 @@ export const SITE: SiteConfig = {
   repo: "https://github.com/RizkyAp11/portfolio",
   instagram: "https://instagram.com/adit.ptama",
   instagramHandle: "@adit.ptama",
-  openTo: "Website & UI projects",
+  openTo: "Website and UI projects",
   currently:
     "Building new web projects and sharpening my frontend skills through real-world work.",
   linkedin: undefined,
@@ -52,17 +52,17 @@ export const SITE: SiteConfig = {
 };
 
 export const NAV = [
-  { id: "home", label: "01. HOME" },
-  { id: "about", label: "02. ABOUT" },
-  { id: "projects", label: "03. PROJECTS" },
-  { id: "contact", label: "04. CONTACT" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 /** Shown in the hero. Only list what you actually use. */
-export const STACK_CORE = ["NEXT.JS", "REACT", "TYPESCRIPT", "TAILWIND CSS"];
+export const STACK_CORE = ["Next.js", "React", "TypeScript", "Tailwind CSS"];
 
 /** Shown in About, next to the core stack. */
-export const STACK_TOOLS = ["HTML & CSS", "GIT & GITHUB", "VERCEL"];
+export const STACK_TOOLS = ["HTML & CSS", "Git & GitHub", "Vercel"];
 
 export interface Project {
   number: string;
@@ -70,7 +70,7 @@ export interface Project {
   category: string;
   role: string;
   year: string;
-  status: "LIVE" | "WIP" | "ARCHIVED";
+  status: "Live" | "In progress" | "Archived";
   summary: string;
   /** Concrete, checkable facts: what you built, decisions you made, results. */
   highlights: string[];
@@ -84,20 +84,20 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     number: "01",
-    title: "PORTFOLIO WEBSITE",
-    category: "WEB / PERSONAL",
-    role: "DESIGN & DEVELOPMENT",
+    title: "Portfolio website",
+    category: "Web / personal",
+    role: "Design and development",
     year: "2026",
-    status: "LIVE",
+    status: "Live",
     summary:
-      "The site you are on: a personal portfolio designed and built from scratch as a typography-led, editorial interface.",
+      "The site you are on: a personal portfolio designed and built from scratch around typography and a restrained dark palette.",
     highlights: [
       "Responsive single-page layout, from small phones to wide desktops.",
       "Open Graph image, sitemap and robots rules generated with Next.js file conventions.",
-      "Custom cursor and scroll progress driven by refs, so scrolling never re-renders the page.",
+      "Mostly server-rendered; the only client code is the nav and a scroll progress bar.",
       "Deployed on Vercel, with the source public on GitHub.",
     ],
-    stack: ["NEXT.JS", "TYPESCRIPT", "TAILWIND CSS"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     liveUrl: "https://portfoliorizky.vercel.app",
     repoUrl: "https://github.com/RizkyAp11/portfolio",
   },
